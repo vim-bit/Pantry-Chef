@@ -57,31 +57,48 @@
 
         <main>
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">1. Add Your Ingredients</h2>
-                <p class="text-gray-600 mb-4">Upload or take up to 5 pictures of your items.</p>
-                
-                <div id="image-preview-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-4 min-h-[150px] bg-gray-100 p-4 rounded-lg border-2 border-dashed border-gray-300"></div>
+                <!-- API Key Section - Integrated -->
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Configuration</h2>
+                    <label for="api-key-input" class="block text-sm font-medium text-gray-700 mb-1">
+                        Google AI Studio API Key (<a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline">Get a Key</a>)
+                    </label>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="password" id="api-key-input" placeholder="Enter your API Key" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <button id="save-api-key-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors">Save Key</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Your key is saved in your browser's local storage.</p>
+                    <p id="api-key-error" class="text-red-500 mt-2 text-sm hidden"></p>
+                </div>
 
-                <div class="flex flex-wrap items-center justify-center sm:justify-between gap-4">
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <label for="file-upload" class="custom-file-upload w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-                            Upload Image
-                        </label>
-                        <input id="file-upload" type="file" class="hidden" multiple accept="image/*">
+                <!-- Main Content -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">1. Add Your Ingredients</h2>
+                    <p class="text-gray-600 mb-4">Upload or take up to 5 pictures of your items.</p>
+                    
+                    <div id="image-preview-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-4 min-h-[150px] bg-gray-100 p-4 rounded-lg border-2 border-dashed border-gray-300"></div>
+
+                    <div class="flex flex-wrap items-center justify-center sm:justify-between gap-4">
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <label for="file-upload" class="custom-file-upload w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                                Upload Image
+                            </label>
+                            <input id="file-upload" type="file" class="hidden" multiple accept="image/*">
+                            
+                            <button id="take-picture-btn" class="custom-file-upload w-auto bg-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                Take Picture
+                            </button>
+                        </div>
                         
-                        <button id="take-picture-btn" class="custom-file-upload w-auto bg-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                            Take Picture
+                        <button id="get-recipes-btn" class="w-full sm:w-auto bg-green-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none">
+                            <span id="btn-text">Get Recipes & Suggestions</span>
+                            <div id="loading-spinner" class="hidden"><div class="spinner w-6 h-6 border-4 border-white border-solid rounded-full"></div></div>
                         </button>
                     </div>
-                    
-                    <button id="get-recipes-btn" class="w-full sm:w-auto bg-green-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none">
-                        <span id="btn-text">Get Recipes & Suggestions</span>
-                        <div id="loading-spinner" class="hidden"><div class="spinner w-6 h-6 border-4 border-white border-solid rounded-full"></div></div>
-                    </button>
+                     <p id="upload-error" class="text-red-500 mt-2 text-sm hidden"></p>
                 </div>
-                 <p id="upload-error" class="text-red-500 mt-2 text-sm hidden"></p>
             </div>
 
             <div id="results-section" class="mt-10">
@@ -119,6 +136,11 @@
         const loadingSpinner = document.getElementById('loading-spinner');
         const btnText = document.getElementById('btn-text');
         
+        // API Key elements
+        const apiKeyInput = document.getElementById('api-key-input');
+        const saveApiKeyBtn = document.getElementById('save-api-key-btn');
+        const apiKeyError = document.getElementById('api-key-error');
+
         // Camera-related DOM elements
         const takePictureBtn = document.getElementById('take-picture-btn');
         const cameraModal = document.getElementById('camera-modal');
@@ -131,6 +153,7 @@
         let uploadedFiles = [];
         const MAX_FILES = 5;
         let stream = null; // To hold the camera stream
+        let userApiKey = null;
 
         // Event Listeners
         fileUpload.addEventListener('change', handleFileSelect);
@@ -138,6 +161,35 @@
         takePictureBtn.addEventListener('click', openCamera);
         snapBtn.addEventListener('click', snapPicture);
         closeCameraBtn.addEventListener('click', closeCamera);
+        saveApiKeyBtn.addEventListener('click', saveApiKey);
+        
+        function saveApiKey() {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                userApiKey = key;
+                localStorage.setItem('googleApiKey', key);
+                apiKeyError.classList.add('hidden');
+                saveApiKeyBtn.textContent = 'Saved!';
+                saveApiKeyBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                saveApiKeyBtn.classList.add('bg-green-500');
+                setTimeout(() => {
+                    saveApiKeyBtn.textContent = 'Save Key';
+                    saveApiKeyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    saveApiKeyBtn.classList.remove('bg-green-500');
+                }, 2000);
+            } else {
+                apiKeyError.textContent = "Please enter a valid API key.";
+                apiKeyError.classList.remove('hidden');
+            }
+        }
+        
+        function loadApiKey() {
+            const savedKey = localStorage.getItem('googleApiKey');
+            if (savedKey) {
+                userApiKey = savedKey;
+                apiKeyInput.value = savedKey;
+            }
+        }
 
         function handleFileSelect(e) {
             const files = e.target.files;
@@ -159,7 +211,7 @@
                 createImagePreview(fileWithId);
             }
             updateGetRecipesButtonState();
-            e.target.value = null; // Reset file input
+            e.target.value = null;
         }
 
         async function openCamera() {
@@ -168,21 +220,12 @@
                 return;
             }
             try {
-                // Prefer the rear camera
                 stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 cameraView.srcObject = stream;
                 cameraModal.classList.remove('hidden');
             } catch (err) {
-                console.error("Error accessing rear camera, trying front camera: ", err);
-                try {
-                    // Fallback to any available camera
-                    stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    cameraView.srcObject = stream;
-                    cameraModal.classList.remove('hidden');
-                } catch (err2) {
-                    console.error("Error accessing any camera: ", err2);
-                    showApiError("Could not access camera. Please check your browser permissions and ensure you are on a secure (https) connection.");
-                }
+                console.error("Error accessing camera: ", err);
+                showApiError("Could not access camera. Please check browser permissions.");
             }
         }
 
@@ -271,6 +314,10 @@
         }
 
         async function fetchRecipesAndSuggestions() {
+            if (!userApiKey) {
+                showApiError("Please set your Google AI Studio API key before getting recipes.");
+                return;
+            }
             if (uploadedFiles.length === 0) {
                 showUploadError("Please upload or take a picture first.");
                 return;
@@ -282,92 +329,116 @@
             apiError.classList.add('hidden');
             uploadError.classList.add('hidden');
 
-            try {
-                const imageParts = await Promise.all(uploadedFiles.map(async (fileWithId) => ({
-                    inlineData: { mimeType: fileWithId.file.type, data: await toBase64(fileWithId.file) }
-                })));
+            const maxRetries = 3;
+            let delay = 2000; // Start with 2 seconds
 
-                const prompt = `
-                    Analyze the ingredients in the images. Suggest up to 3 recipes.
-                    Also, identify any store-brand products from Walmart (Great Value), Target (Good & Gather), or Costco (Kirkland Signature).
-                    For each recipe, provide the recipe name, description, ingredients, and instructions.
-                    Then, provide a list of identified store-brand products. For each of these products, provide its specific name as seen on the package (productName), the original brand and store (originalBrand), and a generic product category (productCategory, e.g., "all-purpose flour", "protein bar", "canned corn").
-                    Your response MUST be a valid JSON array. Do not include any text outside of the JSON array.
-                `;
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    const imageParts = await Promise.all(uploadedFiles.map(async (fileWithId) => ({
+                        inlineData: { mimeType: fileWithId.file.type, data: await toBase64(fileWithId.file) }
+                    })));
 
-                const schema = {
-                    type: "ARRAY",
-                    items: {
-                        type: "OBJECT",
-                        properties: {
-                            recipeName: { type: "STRING" },
-                            description: { type: "STRING" },
-                            ingredients: { type: "ARRAY", items: { type: "STRING" } },
-                            instructions: { type: "ARRAY", items: { type: "STRING" } },
-                            identifiedStoreBrands: {
-                                type: "ARRAY",
-                                items: {
-                                    type: "OBJECT",
-                                    properties: {
-                                        productName: { type: "STRING" },
-                                        originalBrand: { type: "STRING" },
-                                        productCategory: { type: "STRING" }
-                                    },
-                                    required: ["productName", "originalBrand", "productCategory"]
+                    const prompt = `
+                        Analyze the ingredients in the images. Suggest up to 3 recipes.
+                        Also, identify any store-brand products from Walmart (Great Value), Target (Good & Gather), or Costco (Kirkland Signature).
+                        For each recipe, provide the recipe name, description, ingredients, and instructions.
+                        Then, provide a list of identified store-brand products. For each of these products, provide its specific name as seen on the package (productName), the original brand and store (originalBrand), and a generic product category (productCategory, e.g., "all-purpose flour", "protein bar", "canned corn").
+                        Your response MUST be a valid JSON array. Do not include any text outside of the JSON array.
+                    `;
+
+                    const schema = {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                recipeName: { type: "STRING" },
+                                description: { type: "STRING" },
+                                ingredients: { type: "ARRAY", items: { type: "STRING" } },
+                                instructions: { type: "ARRAY", items: { type: "STRING" } },
+                                identifiedStoreBrands: {
+                                    type: "ARRAY",
+                                    items: {
+                                        type: "OBJECT",
+                                        properties: {
+                                            productName: { type: "STRING" },
+                                            originalBrand: { type: "STRING" },
+                                            productCategory: { type: "STRING" }
+                                        },
+                                        required: ["productName", "originalBrand", "productCategory"]
+                                    }
                                 }
-                            }
-                        },
-                        required: ["recipeName", "description", "ingredients", "instructions", "identifiedStoreBrands"]
+                            },
+                            required: ["recipeName", "description", "ingredients", "instructions", "identifiedStoreBrands"]
+                        }
+                    };
+
+                    const payload = {
+                        contents: [{ parts: [{ text: prompt }, ...imageParts] }],
+                        generationConfig: { responseMimeType: "application/json", responseSchema: schema }
+                    };
+                    
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${userApiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const error = new Error(`API error: ${response.status} ${response.statusText}`);
+                        error.status = response.status;
+                        error.body = await response.text();
+                        throw error;
                     }
-                };
 
-                const payload = {
-                    contents: [{ parts: [{ text: prompt }, ...imageParts] }],
-                    generationConfig: { responseMimeType: "application/json", responseSchema: schema }
-                };
-                
-                const apiKey = ""; // Injected by environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    // --- SUCCESS PATH ---
+                    const result = await response.json();
+                    if (!result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        throw new Error("The AI could not generate recipes from the provided images.");
+                    }
 
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                    let recipes = JSON.parse(result.candidates[0].content.parts[0].text);
 
-                if (!response.ok) throw new Error(`API error: ${response.status} ${response.statusText}`);
+                    resultsTitle.textContent = 'Finding best H-E-B alternatives...';
+                    for(const recipe of recipes) {
+                        for (const brand of recipe.identifiedStoreBrands) {
+                            const primarySearchTerm = `H-E-B ${brand.productCategory}`;
+                            const fallbackSearchTerm = brand.productCategory;
+                            
+                            brand.hebBestMatch = {
+                                title: `Best match for H-E-B ${brand.productCategory}`,
+                                url: `https://www.heb.com/search/?q=${encodeURIComponent(primarySearchTerm)}`
+                            };
+                            brand.hebFallback = {
+                                 title: `See all '${brand.productCategory}'`,
+                                 url: `https://www.heb.com/search/?q=${encodeURIComponent(fallbackSearchTerm)}`
+                            };
+                        }
+                    }
+                    
+                    displayRecipes(recipes);
+                    setLoading(false);
+                    return; // Exit the function on success
 
-                const result = await response.json();
-                if (!result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                    throw new Error("The AI could not generate recipes from the provided images.");
-                }
+                } catch (error) {
+                    console.warn(`Attempt ${attempt + 1} of ${maxRetries} failed.`, error);
 
-                let recipes = JSON.parse(result.candidates[0].content.parts[0].text);
+                    const isOverloaded = (error.body && typeof error.body === 'string' && error.body.toLowerCase().includes("overloaded")) || (error.message && error.message.toLowerCase().includes("overloaded"));
+                    const isRetriableStatus = error.status === 429 || error.status === 503;
 
-                resultsTitle.textContent = 'Finding best H-E-B alternatives...';
-                for(const recipe of recipes) {
-                    for (const brand of recipe.identifiedStoreBrands) {
-                        const primarySearchTerm = `H-E-B ${brand.productCategory}`;
-                        const fallbackSearchTerm = brand.productCategory;
-                        
-                        brand.hebBestMatch = {
-                            title: `Best match for H-E-B ${brand.productCategory}`,
-                            url: `https://www.heb.com/search/?q=${encodeURIComponent(primarySearchTerm)}`
-                        };
-                        brand.hebFallback = {
-                             title: `See all '${brand.productCategory}'`,
-                             url: `https://www.heb.com/search/?q=${encodeURIComponent(fallbackSearchTerm)}`
-                        };
+                    if ((isOverloaded || isRetriableStatus) && attempt < maxRetries - 1) {
+                        resultsTitle.textContent = `Model is busy. Retrying in ${delay / 1000}s...`;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    } else {
+                        // --- FINAL FAILURE PATH ---
+                        console.error('Failed after all retries:', error);
+                        showApiError(error.message || "An unexpected error occurred after multiple retries.");
+                        setLoading(false);
+                        return; // Exit the function on final failure
                     }
                 }
-                
-                displayRecipes(recipes);
-
-            } catch (error) {
-                console.error('Error:', error);
-                showApiError(error.message || "An unexpected error occurred.");
-            } finally {
-                setLoading(false);
             }
         }
 
@@ -434,7 +505,10 @@
         }
         
         // Initial setup
-        updateGetRecipesButtonState();
+        document.addEventListener('DOMContentLoaded', () => {
+            loadApiKey();
+            updateGetRecipesButtonState();
+        });
     </script>
 </body>
 </html>
